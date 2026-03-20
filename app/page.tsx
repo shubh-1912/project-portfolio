@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Github, Linkedin, Mail, MapPin, Database, Server, Code, Terminal } from 'lucide-react';
+import { Github, Linkedin, Mail, MapPin, Database, Server, Code, Terminal, Home } from 'lucide-react';
 
 export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState('All');
@@ -63,7 +63,7 @@ export default function Portfolio() {
     e.preventDefault();
     const element = document.getElementById(id);
     if (element) {
-      const offset = 80; // Adds a little breathing room at the top
+      const offset = 20; // Snaps exactly to the top
       const bodyRect = document.body.getBoundingClientRect().top;
       const elementRect = element.getBoundingClientRect().top;
       const elementPosition = elementRect - bodyRect;
@@ -83,6 +83,7 @@ export default function Portfolio() {
       <nav className="hidden lg:flex fixed right-0 top-1/2 -translate-y-1/2 z-50 group">
         <div className="bg-white border border-r-0 border-zinc-200 shadow-sm rounded-l-2xl py-3 px-2 transition-all duration-300 w-14 hover:w-40 overflow-hidden flex flex-col gap-2">
           {[
+            { id: 'home', label: 'Home', icon: Home },
             { id: 'about', label: 'About', icon: Terminal },
             { id: 'experience', label: 'Experience', icon: Server },
             { id: 'projects', label: 'Projects', icon: Code },
@@ -104,7 +105,7 @@ export default function Portfolio() {
       </nav>
 
       {/* HERO SECTION */}
-      <header className="max-w-4xl mx-auto px-6 py-24 md:py-32">
+      <header id="home" className="max-w-4xl mx-auto px-6 py-24 md:py-32">
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
           Shubh Mishra
         </h1>
