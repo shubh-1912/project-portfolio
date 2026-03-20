@@ -63,7 +63,7 @@ export default function Portfolio() {
     e.preventDefault();
     const element = document.getElementById(id);
     if (element) {
-      const offset = 20; // Snaps exactly to the top
+      const offset = 20;
       const bodyRect = document.body.getBoundingClientRect().top;
       const elementRect = element.getBoundingClientRect().top;
       const elementPosition = elementRect - bodyRect;
@@ -86,8 +86,8 @@ export default function Portfolio() {
             { id: 'home', label: 'Home', icon: Home },
             { id: 'about', label: 'About', icon: Terminal },
             { id: 'experience', label: 'Experience', icon: Server },
+            { id: 'expertise', label: 'Expertise', icon: Database },
             { id: 'projects', label: 'Projects', icon: Code },
-            { id: 'toolkit', label: 'Toolkit', icon: Database },
           ].map((item) => (
             <a 
               key={item.id} 
@@ -168,9 +168,56 @@ export default function Portfolio() {
         </div>
       </section>
 
+      {/* TECHNICAL EXPERTISE */}
+      <section id="expertise" className="max-w-4xl mx-auto px-6 py-12">
+        <h2 className="text-2xl font-bold mb-8 flex items-center gap-2"><Database size={24}/> Technical Expertise</h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          {/* Programming */}
+          <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm">
+            <h3 className="text-lg font-bold mb-4 text-zinc-800 border-b border-zinc-100 pb-2">Programming</h3>
+            <ul className="space-y-3 text-zinc-600 text-sm font-medium">
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> C / C++ / C#</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Python</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Java</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> JavaScript</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> SQL / PL/SQL</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Solidity</li>
+            </ul>
+          </div>
+
+          {/* Frameworks & APIs */}
+          <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm">
+            <h3 className="text-lg font-bold mb-4 text-zinc-800 border-b border-zinc-100 pb-2">Frameworks</h3>
+            <ul className="space-y-3 text-zinc-600 text-sm font-medium">
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> .NET Core</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Node.js</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> React / Next.js</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> OpenCV / Keras</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> xUnit</li>
+            </ul>
+          </div>
+
+          {/* DevOps & Cloud */}
+          <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm">
+            <h3 className="text-lg font-bold mb-4 text-zinc-800 border-b border-zinc-100 pb-2">DevOps & Cloud</h3>
+            <ul className="space-y-3 text-zinc-600 text-sm font-medium">
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Oracle Cloud (OCI)</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Docker</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> OpenTelemetry</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Gatling / JMeter</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Emissary-Ingress</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Linux / Git</li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
       {/* PROJECTS WITH FILTERS */}
-      <section id="projects" className="max-w-4xl mx-auto px-6 py-12">
-        <h2 className="text-2xl font-bold mb-8 flex items-center gap-2"><Code size={24}/> Selected Projects</h2>
+      <section id="projects" className="max-w-4xl mx-auto px-6 py-12 mb-24">
+        <h2 className="text-2xl font-bold mb-8 flex items-center gap-2"><Code size={24}/>Featured Projects</h2>
         
         {/* Filter Buttons */}
         <div className="flex flex-wrap gap-3 mb-8">
@@ -210,19 +257,6 @@ export default function Portfolio() {
           ))}
         </div>
       </section>
-
-      {/* SKILLS */}
-      <section id="toolkit" className="max-w-4xl mx-auto px-6 py-12 mb-24">
-        <h2 className="text-2xl font-bold mb-6 flex items-center gap-2"><Database size={24}/> Toolkit</h2>
-        <div className="flex flex-wrap gap-3">
-          {['C', 'C++', 'Python', 'Go', 'SQL', 'PostgreSQL', 'Java', 'JavaScript', 'Solidity', 'OCI', '.NET Core', 'Docker', 'OpenTelemetry', 'Linux'].map((skill) => (
-            <span key={skill} className="px-4 py-2 bg-zinc-100 text-zinc-800 rounded-lg text-sm font-medium border border-zinc-200">
-              {skill}
-            </span>
-          ))}
-        </div>
-      </section>
-
     </div>
   );
 }
