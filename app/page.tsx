@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Github, Linkedin, Mail, MapPin, Database, Server, Code, Terminal } from 'lucide-react';
+import { Github, Linkedin, Mail, MapPin, Database, Server, Code, Terminal, Home } from 'lucide-react';
 
 export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState('All');
@@ -58,11 +58,54 @@ export default function Portfolio() {
     ? projects 
     : projects.filter(project => project.category === activeFilter);
 
+  // Smooth scroll handler
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 20;
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = element.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-zinc-50 text-zinc-900 font-sans selection:bg-zinc-900 selection:text-zinc-50">
+    <div className="min-h-screen bg-zinc-50 text-zinc-900 font-sans selection:bg-zinc-900 selection:text-zinc-50 relative">
       
+      {/* FLOATING RIGHT NAVIGATION (Desktop Only) */}
+      <nav className="hidden lg:flex fixed right-0 top-1/2 -translate-y-1/2 z-50 group">
+        <div className="bg-white border border-r-0 border-zinc-200 shadow-sm rounded-l-2xl py-3 px-2 transition-all duration-300 w-14 hover:w-40 overflow-hidden flex flex-col gap-2">
+          {[
+            { id: 'home', label: 'Home', icon: Home },
+            { id: 'about', label: 'About', icon: Terminal },
+            { id: 'experience', label: 'Experience', icon: Server },
+            { id: 'expertise', label: 'Expertise', icon: Database },
+            { id: 'projects', label: 'Projects', icon: Code },
+          ].map((item) => (
+            <a 
+              key={item.id} 
+              href={`#${item.id}`} 
+              onClick={(e) => scrollToSection(e, item.id)}
+              className="flex items-center gap-4 p-2 rounded-xl hover:bg-zinc-100 text-zinc-500 hover:text-zinc-900 transition-colors whitespace-nowrap"
+            >
+              <item.icon size={20} className="shrink-0" />
+              <span className="font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                {item.label}
+              </span>
+            </a>
+          ))}
+        </div>
+      </nav>
+
       {/* HERO SECTION */}
-      <header className="max-w-4xl mx-auto px-6 py-24 md:py-32">
+      <header id="home" className="max-w-4xl mx-auto px-6 py-24 md:py-32">
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
           Shubh Mishra
         </h1>
@@ -88,7 +131,7 @@ export default function Portfolio() {
       </header>
 
       {/* ABOUT ME */}
-      <section className="max-w-4xl mx-auto px-6 py-12">
+      <section id="about" className="max-w-4xl mx-auto px-6 py-12">
         <h2 className="text-2xl font-bold mb-6 flex items-center gap-2"><Terminal size={24}/> About Me</h2>
         <p className="text-zinc-600 leading-relaxed text-lg">
           I build robust, high-performance systems. From shaving milliseconds off API response times at Oracle to diving deep into OS kernels and database micro-optimizations, I thrive on solving complex architectural problems. When I am not writing C++ or optimizing PostgreSQL indexes, you can usually find me hiking the trails around DTLA or editing photos.
@@ -96,7 +139,7 @@ export default function Portfolio() {
       </section>
 
       {/* EXPERIENCE */}
-      <section className="max-w-4xl mx-auto px-6 py-12">
+      <section id="experience" className="max-w-4xl mx-auto px-6 py-12">
         <h2 className="text-2xl font-bold mb-8 flex items-center gap-2"><Server size={24}/> Experience</h2>
         
         <div className="border-l-2 border-zinc-200 pl-6 pb-8">
@@ -125,9 +168,56 @@ export default function Portfolio() {
         </div>
       </section>
 
+      {/* TECHNICAL EXPERTISE */}
+      <section id="expertise" className="max-w-4xl mx-auto px-6 py-12">
+        <h2 className="text-2xl font-bold mb-8 flex items-center gap-2"><Database size={24}/> Technical Expertise</h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          {/* Programming */}
+          <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm">
+            <h3 className="text-lg font-bold mb-4 text-zinc-800 border-b border-zinc-100 pb-2">Programming</h3>
+            <ul className="space-y-3 text-zinc-600 text-sm font-medium">
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> C / C++ / C#</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Python</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Java</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> JavaScript</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> SQL / PL/SQL</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Solidity</li>
+            </ul>
+          </div>
+
+          {/* Frameworks & APIs */}
+          <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm">
+            <h3 className="text-lg font-bold mb-4 text-zinc-800 border-b border-zinc-100 pb-2">Frameworks</h3>
+            <ul className="space-y-3 text-zinc-600 text-sm font-medium">
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> .NET Core</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Node.js</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> React / Next.js</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> OpenCV / Keras</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> xUnit</li>
+            </ul>
+          </div>
+
+          {/* DevOps & Cloud */}
+          <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm">
+            <h3 className="text-lg font-bold mb-4 text-zinc-800 border-b border-zinc-100 pb-2">DevOps & Cloud</h3>
+            <ul className="space-y-3 text-zinc-600 text-sm font-medium">
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Oracle Cloud (OCI)</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Docker</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> OpenTelemetry</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Gatling / JMeter</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Emissary-Ingress</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Linux / Git</li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
       {/* PROJECTS WITH FILTERS */}
-      <section className="max-w-4xl mx-auto px-6 py-12">
-        <h2 className="text-2xl font-bold mb-8 flex items-center gap-2"><Code size={24}/> Selected Projects</h2>
+      <section id="projects" className="max-w-4xl mx-auto px-6 py-12 mb-24">
+        <h2 className="text-2xl font-bold mb-8 flex items-center gap-2"><Code size={24}/>Featured Projects</h2>
         
         {/* Filter Buttons */}
         <div className="flex flex-wrap gap-3 mb-8">
@@ -167,19 +257,6 @@ export default function Portfolio() {
           ))}
         </div>
       </section>
-
-      {/* SKILLS */}
-      <section className="max-w-4xl mx-auto px-6 py-12 mb-24">
-        <h2 className="text-2xl font-bold mb-6 flex items-center gap-2"><Database size={24}/> Toolkit</h2>
-        <div className="flex flex-wrap gap-3">
-          {['C', 'C++', 'Python', 'Go', 'SQL', 'PostgreSQL', 'Java', 'JavaScript', 'Solidity', 'OCI', '.NET Core', 'Docker', 'OpenTelemetry', 'Linux'].map((skill) => (
-            <span key={skill} className="px-4 py-2 bg-zinc-100 text-zinc-800 rounded-lg text-sm font-medium border border-zinc-200">
-              {skill}
-            </span>
-          ))}
-        </div>
-      </section>
-
     </div>
   );
 }
