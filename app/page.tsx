@@ -1,10 +1,26 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Github, Linkedin, Mail, MapPin, Database, Server, Code, Terminal, Home } from 'lucide-react';
 
 export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState('All');
+  const [showLeftSidebar, setShowLeftSidebar] = useState(false);
+
+  // Scroll listener to toggle the left sidebar
+  useEffect(() => {
+    const handleScroll = () => {
+      // Toggle sidebar after scrolling roughly past the hero section (400px)
+      if (window.scrollY > 400) {
+        setShowLeftSidebar(true);
+      } else {
+        setShowLeftSidebar(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Flattened project data for easy filtering
   const projects = [
@@ -79,6 +95,32 @@ export default function Portfolio() {
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900 font-sans selection:bg-zinc-900 selection:text-zinc-50 relative">
       
+      {/* FLOATING LEFT CONTACT (Desktop Only) */}
+      <aside 
+        className={`hidden lg:flex flex-col fixed left-4 xl:left-8 top-1/3 z-50 transition-all duration-500 ${
+          showLeftSidebar ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
+        }`}
+      >
+        <div className="bg-white/90 backdrop-blur-sm border border-zinc-200 shadow-sm rounded-2xl p-4 flex flex-col items-center gap-5">
+          <div className="text-center">
+            <p className="font-bold text-zinc-900 leading-tight">Shubh</p>
+            <p className="font-bold text-zinc-900 leading-tight">Mishra</p>
+          </div>
+          <div className="w-8 h-px bg-zinc-200"></div>
+          <div className="flex flex-col gap-3">
+            <a href="mailto:mishrashubh.1912@gmail.com" className="p-2 text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 rounded-xl transition-colors" title="Email">
+              <Mail size={20} />
+            </a>
+            <a href="https://linkedin.com/in/shubhmishra19" target="_blank" rel="noreferrer" className="p-2 text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 rounded-xl transition-colors" title="LinkedIn">
+              <Linkedin size={20} />
+            </a>
+            <a href="https://github.com" target="_blank" rel="noreferrer" className="p-2 text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 rounded-xl transition-colors" title="GitHub">
+              <Github size={20} />
+            </a>
+          </div>
+        </div>
+      </aside>
+
       {/* FLOATING RIGHT NAVIGATION (Desktop Only) */}
       <nav className="hidden lg:flex fixed right-0 top-1/2 -translate-y-1/2 z-50 group">
         <div className="bg-white border border-r-0 border-zinc-200 shadow-sm rounded-l-2xl py-3 px-2 transition-all duration-300 w-14 hover:w-40 overflow-hidden flex flex-col gap-2">
