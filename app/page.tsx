@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Github, Linkedin, Mail, MapPin, Database, Server, Code, Terminal, Home, ExternalLink } from 'lucide-react';
+import { Github, Linkedin, Mail, MapPin, Database, Server, Code, Terminal, Home, ExternalLink, X, Menu } from 'lucide-react';
 
 // Lightweight scroll reveal component
 function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode, delay?: number, className?: string }) {
@@ -46,6 +46,7 @@ function Reveal({ children, delay = 0, className = "" }: { children: React.React
 export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState('All');
   const [showLeftSidebar, setShowLeftSidebar] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Scroll listener to toggle the left sidebar
   useEffect(() => {
@@ -62,6 +63,21 @@ export default function Portfolio() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Prevent scrolling when mobile menu is open
+  useEffect(() => {
+
+    if (isMobileMenuOpen) {
+
+      document.body.style.overflow = 'hidden';
+
+    } else {
+
+      document.body.style.overflow = 'unset';
+
+    }
+
+  }, [isMobileMenuOpen]);
+  
   // Flattened project data for easy filtering
   const projects = [
     {
@@ -115,9 +131,18 @@ export default function Portfolio() {
     ? projects 
     : projects.filter(project => project.category === activeFilter);
 
+  const navItems = [
+    { id: 'home', label: 'Home', icon: Home },
+    { id: 'about', label: 'About', icon: Terminal },
+    { id: 'experience', label: 'Experience', icon: Server },
+    { id: 'expertise', label: 'Expertise', icon: Database },
+    { id: 'projects', label: 'Projects', icon: Code },
+  ];
+
   // Smooth scroll handler
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
+    setIsMobileMenuOpen(false); // Close mobile menu if open
     const element = document.getElementById(id);
     if (element) {
       const offset = 20;
@@ -135,7 +160,51 @@ export default function Portfolio() {
 
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900 font-sans selection:bg-zinc-900 selection:text-zinc-50 relative">
+      {/* --- MOBILE EXCLUSIVES --- */}
       
+      {/* Floating LinkedIn Button (Mobile) */}
+      <a 
+        href="https://linkedin.com/in/shubhmishra19" 
+        target="_blank" 
+        rel="noreferrer"
+        className="lg:hidden fixed bottom-6 right-6 w-14 h-14 bg-[#0A66C2] text-white rounded-full shadow-lg flex items-center justify-center z-40 hover:bg-[#004182] hover:-translate-y-1 transition-all duration-300"
+        aria-label="LinkedIn"
+      >
+        <Linkedin size={24} />
+      </a>
+
+      {/* Hamburger Menu Toggle (Mobile) */}
+      <button 
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        className="lg:hidden fixed top-6 right-6 w-12 h-12 bg-white/90 backdrop-blur-sm border border-zinc-200 shadow-sm text-zinc-900 rounded-full flex items-center justify-center z-[60] hover:bg-zinc-100 transition-colors"
+        aria-label="Toggle Navigation"
+      >
+        {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+      </button>
+
+
+      {/* Full-Screen Mobile Menu Overlay */}
+      <div 
+        className={`lg:hidden fixed inset-0 bg-zinc-50/95 backdrop-blur-md z-50 flex flex-col items-center justify-center transition-all duration-300 ${
+          isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+      >
+        <nav className="flex flex-col gap-8 items-center">
+          {navItems.map((item) => (
+            <a 
+              key={item.id} 
+              href={`#${item.id}`} 
+              onClick={(e) => scrollToSection(e, item.id)}
+              className="flex items-center gap-4 text-2xl font-bold text-zinc-600 hover:text-zinc-900 transition-colors"
+            >
+              <item.icon size={28} />
+              {item.label}
+            </a>
+          ))}
+        </nav>
+      </div>
+
+      {/* --- DESKTOP EXCLUSIVES --- */}
       {/* FLOATING LEFT CONTACT (Desktop Only) */}
       <aside 
         className={`hidden lg:flex flex-col fixed left-4 xl:left-8 top-1/3 z-50 transition-all duration-500 ${
@@ -165,13 +234,7 @@ export default function Portfolio() {
       {/* FLOATING RIGHT NAVIGATION (Desktop Only) */}
       <nav className="hidden lg:flex fixed right-0 top-1/2 -translate-y-1/2 z-50 group">
         <div className="bg-white border border-r-0 border-zinc-200 shadow-sm rounded-l-2xl py-3 px-2 transition-all duration-300 w-14 hover:w-40 overflow-hidden flex flex-col gap-2">
-          {[
-            { id: 'home', label: 'Home', icon: Home },
-            { id: 'about', label: 'About', icon: Terminal },
-            { id: 'experience', label: 'Experience', icon: Server },
-            { id: 'expertise', label: 'Expertise', icon: Database },
-            { id: 'projects', label: 'Projects', icon: Code },
-          ].map((item) => (
+          {navItems.map((item) => (
             <a 
               key={item.id} 
               href={`#${item.id}`} 
