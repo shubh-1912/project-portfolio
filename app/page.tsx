@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Github, Linkedin, Mail, MapPin, Database, Server, Code, Terminal, Home } from 'lucide-react';
+import { Github, Linkedin, Mail, MapPin, Database, Server, Code, Terminal, Home, ExternalLink } from 'lucide-react';
 
 export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState('All');
@@ -34,7 +34,8 @@ export default function Portfolio() {
       title: "PostgreSQL B-Tree Optimization",
       category: "Systems Engineering",
       description: "Implemented micro-optimizations within the PostgreSQL B-Tree index access method to improve query throughput and latency.",
-      tags: ["C++", "Database Internals"]
+      tags: ["C++", "Database Internals"],
+      link: "https://github.com/shubh-1912/postgresql-17.4-optimized"
     },
     {
       title: "DNA Matching System",
@@ -280,23 +281,62 @@ export default function Portfolio() {
         
         {/* Project Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {filteredProjects.map((proj, pIdx) => (
-            <div key={pIdx} className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm hover:shadow-md transition-shadow flex flex-col h-full">
-              <div className="flex justify-between items-start mb-2">
-                <h3 className="text-lg font-bold">{proj.title}</h3>
+          {filteredProjects.map((proj, pIdx) => {
+            const hasLink = Boolean(proj.link);
+
+            // The inner content of the card is the same, but we only apply 
+            // group-hover classes if the card is an actual link.
+            const cardContent = (
+              <>
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className={`text-lg font-bold ${hasLink ? 'group-hover:text-zinc-600 transition-colors' : ''}`}>
+                    {proj.title}
+                  </h3>
+                  {hasLink && (
+                    <ExternalLink size={18} className="text-zinc-400 opacity-0 group-hover:opacity-100 group-hover:text-zinc-900 transition-all duration-300" />
+                  )}
+                </div>
+                <p className="text-zinc-600 text-sm mb-6 leading-relaxed flex-grow">
+                  {proj.description}
+                </p>
+                <div className="flex flex-wrap gap-2 text-xs font-mono text-zinc-500 mt-auto">
+                  {proj.tags.map((tag, tIdx) => (
+                    <span 
+                      key={tIdx} 
+                      className={`bg-zinc-100 px-2 py-1 rounded border border-zinc-200 ${hasLink ? 'group-hover:bg-white transition-colors' : ''}`}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </>
+            );
+
+            // If it has a link, render an <a> tag with hover effects
+            if (hasLink) {
+              return (
+                <a 
+                  key={pIdx} 
+                  href={proj.link} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col h-full group block"
+                >
+                  {cardContent}
+                </a>
+              );
+            }
+
+            // If no link, render a static <div> with no hover effects
+            return (
+              <div 
+                key={pIdx} 
+                className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm flex flex-col h-full"
+              >
+                {cardContent}
               </div>
-              <p className="text-zinc-600 text-sm mb-6 leading-relaxed flex-grow">
-                {proj.description}
-              </p>
-              <div className="flex flex-wrap gap-2 text-xs font-mono text-zinc-500 mt-auto">
-                {proj.tags.map((tag, tIdx) => (
-                  <span key={tIdx} className="bg-zinc-100 px-2 py-1 rounded border border-zinc-200">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
     </div>
