@@ -1,7 +1,47 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Github, Linkedin, Mail, MapPin, Database, Server, Code, Terminal, Home, ExternalLink } from 'lucide-react';
+
+// Lightweight scroll reveal component
+function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode, delay?: number, className?: string }) {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          // Stop observing once revealed to keep it visible
+          if (ref.current) observer.unobserve(ref.current);
+        }
+      },
+      {
+        threshold: 0.1, // Trigger when 10% of the element is visible
+        rootMargin: '0px 0px -50px 0px' // Trigger slightly before the element hits the bottom of the viewport
+      }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={`transition-all duration-700 ease-out ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      } ${className}`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      {children}
+    </div>
+  );
+}
 
 export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState('All');
@@ -148,7 +188,7 @@ export default function Portfolio() {
       </nav>
 
       {/* HERO SECTION */}
-      <header id="home" className="max-w-4xl mx-auto px-6 py-24 md:py-32">
+      <header id="home" className="max-w-4xl mx-auto px-6 py-24 md:py-28">
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
           Shubh Mishra
         </h1>
@@ -182,6 +222,7 @@ export default function Portfolio() {
       </section>
 
       {/* EXPERIENCE */}
+      <Reveal>
       <section id="experience" className="max-w-4xl mx-auto px-6 py-12">
         <h2 className="text-2xl font-bold mb-8 flex items-center gap-2"><Server size={24}/> Experience</h2>
         
@@ -210,8 +251,10 @@ export default function Portfolio() {
           </ul>
         </div>
       </section>
+      </Reveal>
 
       {/* TECHNICAL EXPERTISE */}
+      <Reveal>
       <section id="expertise" className="max-w-4xl mx-auto px-6 py-12">
         <h2 className="text-2xl font-bold mb-8 flex items-center gap-2"><Database size={24}/> Technical Expertise</h2>
         
@@ -259,8 +302,10 @@ export default function Portfolio() {
 
         </div>
       </section>
+      </Reveal>
 
       {/* PROJECTS WITH FILTERS */}
+      <Reveal>
       <section id="projects" className="max-w-4xl mx-auto px-6 py-12 mb-24">
         <h2 className="text-2xl font-bold mb-8 flex items-center gap-2"><Code size={24}/>Featured Projects</h2>
         
@@ -341,6 +386,7 @@ export default function Portfolio() {
           })}
         </div>
       </section>
+      </Reveal>
     </div>
   );
 }
