@@ -164,7 +164,7 @@ export default function Portfolio() {
           <a href="https://linkedin.com/in/shubhmishra19" target="_blank" rel="noreferrer" className="flex items-center gap-2 px-4 py-2 bg-zinc-200 text-zinc-900 rounded-full hover:bg-zinc-300 transition-colors">
             <Linkedin size={16} /> LinkedIn
           </a>
-          <a href="https://github.com" target="_blank" rel="noreferrer" className="flex items-center gap-2 px-4 py-2 bg-zinc-200 text-zinc-900 rounded-full hover:bg-zinc-300 transition-colors">
+          <a href="https://github.com/shubh-1912" target="_blank" rel="noreferrer" className="flex items-center gap-2 px-4 py-2 bg-zinc-200 text-zinc-900 rounded-full hover:bg-zinc-300 transition-colors">
             <Github size={16} /> GitHub
           </a>
           <div className="flex items-center gap-2 px-4 py-2 text-zinc-600">
@@ -177,7 +177,7 @@ export default function Portfolio() {
       <section id="about" className="max-w-4xl mx-auto px-6 py-12">
         <h2 className="text-2xl font-bold mb-6 flex items-center gap-2"><Terminal size={24}/> About Me</h2>
         <p className="text-zinc-600 leading-relaxed text-lg">
-          I build robust, high-performance systems. From shaving milliseconds off API response times at Oracle to diving deep into OS kernels and database micro-optimizations, I thrive on solving complex architectural problems. When I am not writing C++ or optimizing PostgreSQL indexes, you can usually find me hiking the trails around DTLA or editing photos.
+        I build robust, high-performance systems. From shaving milliseconds off API response times at Oracle to diving deep into OS kernels and database micro-optimizations, I thrive on solving complex architectural problems. When I am not working, you can usually find me hiking the trails around LA or experimenting with new recipes in the kitchen.
         </p>
       </section>
 
@@ -221,11 +221,12 @@ export default function Portfolio() {
           <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm">
             <h3 className="text-lg font-bold mb-4 text-zinc-800 border-b border-zinc-100 pb-2">Programming</h3>
             <ul className="space-y-3 text-zinc-600 text-sm font-medium">
-              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> C / C++ / C#</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> C / C++</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> C#</li>
               <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Python</li>
               <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Java</li>
-              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> JavaScript</li>
-              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> SQL / PL/SQL</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Javascript</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> SQL</li>
               <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Solidity</li>
             </ul>
           </div>
@@ -239,6 +240,8 @@ export default function Portfolio() {
               <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> React / Next.js</li>
               <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> OpenCV / Keras</li>
               <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> xUnit</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> JMeter</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Gatling</li>
             </ul>
           </div>
 
@@ -249,9 +252,8 @@ export default function Portfolio() {
               <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Oracle Cloud (OCI)</li>
               <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Docker</li>
               <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> OpenTelemetry</li>
-              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Gatling / JMeter</li>
               <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Emissary-Ingress</li>
-              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Linux / Git</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Git</li>
             </ul>
           </div>
 
