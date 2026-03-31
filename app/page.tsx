@@ -224,7 +224,7 @@ export default function Portfolio() {
             <a href="https://linkedin.com/in/shubhmishra19" target="_blank" rel="noreferrer" className="p-2 text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 rounded-xl transition-colors" title="LinkedIn">
               <Linkedin size={20} />
             </a>
-            <a href="https://github.com" target="_blank" rel="noreferrer" className="p-2 text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 rounded-xl transition-colors" title="GitHub">
+            <a href="https://github.com/shubh-1912" target="_blank" rel="noreferrer" className="p-2 text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 rounded-xl transition-colors" title="GitHub">
               <Github size={20} />
             </a>
           </div>
