@@ -100,6 +100,13 @@ export default function Portfolio() {
       tags: ["C++", "Algorithms", "Performance Optimization"]
     },
     {
+      title: "KickScout Visual Search",
+      category: "AI & Machine Learning",
+      description: "Built a multimodal visual similarity search API using OpenAI's CLIP model and Neo4j vector indexing, enabling zero-shot image-to-image footwear recommendations via sub-second HNSW graph traversals.",
+      tags: ["PyTorch", "Neo4j", "FastAPI"],
+      link: "https://github.com/shubh-1912/project-kickscout"
+    },
+    {
       title: "Decentralized Voting Platform",
       category: "Full-Stack & Web3",
       description: "Engineered a MERN stack blockchain voting application with a custom NodeJS API to ensure unique, unalterable transactions for simulated users.",
