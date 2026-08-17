@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Github, Linkedin, Mail, MapPin, Database, Server, Code, Terminal, Home, ExternalLink, X, Menu } from 'lucide-react';
+import { Github, Linkedin, Mail, MapPin, Database, Server, Code, Terminal, Home, ExternalLink, X, Menu, GraduationCap } from 'lucide-react';
 
 // Lightweight scroll reveal component
 function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode, delay?: number, className?: string }) {
@@ -81,30 +81,42 @@ export default function Portfolio() {
   // Flattened project data for easy filtering
   const projects = [
     {
-      title: "Weenix Operating System",
-      category: "Systems Engineering",
-      description: "Developed core OS components including processes, threads, virtual file systems, and virtual memory management in C.",
-      tags: ["C", "Kernel", "Systems Programming"]
-    },
-    {
       title: "PostgreSQL B-Tree Optimization",
       category: "Systems Engineering",
-      description: "Implemented micro-optimizations within the PostgreSQL B-Tree index access method to improve query throughput and latency.",
-      tags: ["C++", "Database Internals"],
+      description: "Optimized B-tree descent and added asynchronous page prefetching in PostgreSQL's storage engine, cutting index-scan latency 15% and I/O wait 20% on multi-GB workloads.",
+      tags: ["C", "Docker", "Database Internals"],
       link: "https://github.com/shubh-1912/postgresql-17.4-optimized"
+    },
+    {
+      title: "DuckDB Query Scheduler with Multi-level Feedback Queue",
+      category: "Systems Engineering",
+      description: "Increased concurrent query throughput 25% on TPC-H SF100 by implementing a multi-level feedback queue scheduler in DuckDB's C++ execution engine, eliminating starvation and cutting p95 latency for short queries from 1,850ms to 240ms.",
+      tags: ["C++", "LLDB", "Database Internals"]
+    },
+    {
+      title: "Weenix Operating System",
+      category: "Systems Engineering",
+      description: "Implemented 20+ POSIX system calls, preemptive scheduling, a virtual file system, and thread synchronization primitives (mutexes, condition variables) in a UNIX-like kernel.",
+      tags: ["C", "GDB", "Kernel"]
+    },
+    {
+      title: "KickScout Visual Search",
+      category: "AI & Machine Learning",
+      description: "Built a zero-shot visual similarity search API over a 44K-item fashion catalog, encoding images into CLIP embeddings (SentenceTransformers ViT-B/32) and serving top-k matches via a FastAPI endpoint backed by Neo4j's native HNSW vector index.",
+      tags: ["PyTorch", "Neo4j", "FastAPI"],
+      link: "https://github.com/shubh-1912/project-kickscout"
+    },
+    {
+      title: "Operations Data Platform — USC Hospitality",
+      category: "Data Engineering",
+      description: "Built a Python/SQL ETL pipeline processing 100K+ daily POS transactions for USC Hospitality, cutting nightly reporting from 40 minutes to 12 seconds and replacing 15 hours/week of manual work with a FastAPI reporting service used by 9 dining units.",
+      tags: ["Python", "Pandas", "SQL", "FastAPI", "ETL"]
     },
     {
       title: "DNA Matching System",
       category: "Systems Engineering",
       description: "Integrated a high-performance system using Hirschberg's algorithm, slashing memory consumption by over 99% for large genomic sequences.",
       tags: ["C++", "Algorithms", "Performance Optimization"]
-    },
-    {
-      title: "KickScout Visual Search",
-      category: "AI & Machine Learning",
-      description: "Built a multimodal visual similarity search API using OpenAI's CLIP model and Neo4j vector indexing, enabling zero-shot image-to-image footwear recommendations via sub-second HNSW graph traversals.",
-      tags: ["PyTorch", "Neo4j", "FastAPI"],
-      link: "https://github.com/shubh-1912/project-kickscout"
     },
     {
       title: "Decentralized Voting Platform",
@@ -132,7 +144,7 @@ export default function Portfolio() {
     }
   ];
 
-  const categories = ['All', 'Systems Engineering', 'Full-Stack & Web3', 'AI & Machine Learning'];
+  const categories = ['All', 'Systems Engineering', 'Data Engineering', 'Full-Stack & Web3', 'AI & Machine Learning'];
 
   const filteredProjects = activeFilter === 'All' 
     ? projects 
@@ -142,6 +154,7 @@ export default function Portfolio() {
     { id: 'home', label: 'Home', icon: Home },
     { id: 'about', label: 'About', icon: Terminal },
     { id: 'experience', label: 'Experience', icon: Server },
+    { id: 'education', label: 'Education', icon: GraduationCap },
     { id: 'expertise', label: 'Expertise', icon: Database },
     { id: 'projects', label: 'Projects', icon: Code },
   ];
@@ -303,9 +316,9 @@ export default function Portfolio() {
           </div>
           <p className="text-zinc-600 font-medium mb-4">Oracle | Hyderabad, India</p>
           <ul className="list-disc list-inside text-zinc-600 space-y-2">
-            <li>Engineered microservices-based CRUD APIs on Oracle Cloud Infrastructure, delivering a robust product.</li>
-            <li>Optimized sensitive authorization flow, reducing API response times by 23% securely.</li>
-            <li>Built production-level POCs for Webhooks and custom API Gateways, cutting projected infra costs by 30%.</li>
+            <li>Scaled 6 .NET Core microservices and REST APIs on Oracle Cloud Infrastructure to sustain 180 peak requests/sec at 140ms p99 and 99.95% availability, via connection pooling, response caching, and horizontal replica scaling.</li>
+            <li>Reduced p99 authorization API latency 23% by profiling hot request paths with OpenTelemetry, short-circuiting redundant policy evaluations, and caching resolved permission sets.</li>
+            <li>Prototyped custom-metric-driven horizontal autoscaling, webhook delivery, and configurable gateway routing on Emissary-Ingress, benchmarked at a 30% infrastructure cost reduction under 5x peak load; adopted into the scaling roadmap.</li>
           </ul>
         </div>
 
@@ -316,9 +329,34 @@ export default function Portfolio() {
           </div>
           <p className="text-zinc-600 font-medium mb-4">Oracle | Hyderabad, India</p>
           <ul className="list-disc list-inside text-zinc-600 space-y-2">
-            <li>Improved RESTful API performance by 77% and built an intricate query builder for complex data retrieval.</li>
-            <li>Established Gatling framework for rate limiting & circuit breaking, reducing errors by 63%.</li>
+            <li>Raised query throughput 77% by building a C# query builder that enforced index-driven execution plans, eliminating 12 sequential full-table scans across the 8 hottest production queries.</li>
+            <li>Cut load-test error rate 63% (8.1% → 3.0%) under 2,000 concurrent users by building a Gatling suite and implementing rate limiting and circuit breaking via Polly.</li>
           </ul>
+        </div>
+      </section>
+      </Reveal>
+
+      {/* EDUCATION */}
+      <Reveal>
+      <section id="education" className="max-w-4xl mx-auto px-6 py-12">
+        <h2 className="text-2xl font-bold mb-8 flex items-center gap-2"><GraduationCap size={24}/> Education</h2>
+
+        <div className="border-l-2 border-zinc-200 pl-6 pb-8">
+          <div className="flex justify-between items-baseline mb-2 flex-wrap gap-2">
+            <h3 className="text-xl font-bold">University of Southern California</h3>
+            <span className="text-zinc-500 text-sm font-mono">June 2025 — December 2026</span>
+          </div>
+          <p className="text-zinc-600 font-medium">MS, Computer Science | Los Angeles, CA</p>
+          <p className="text-zinc-500 text-sm mt-1">GPA: 3.81 / 4.0</p>
+        </div>
+
+        <div className="border-l-2 border-zinc-200 pl-6 pb-8">
+          <div className="flex justify-between items-baseline mb-2 flex-wrap gap-2">
+            <h3 className="text-xl font-bold">Maulana Azad National Institute of Technology</h3>
+            <span className="text-zinc-500 text-sm font-mono">Aug 2019 — May 2023</span>
+          </div>
+          <p className="text-zinc-600 font-medium">B.Tech, Computer Science and Engineering | Bhopal, India</p>
+          <p className="text-zinc-500 text-sm mt-1">GPA: 8.89 / 10.0</p>
         </div>
       </section>
       </Reveal>
@@ -328,45 +366,82 @@ export default function Portfolio() {
       <section id="expertise" className="max-w-4xl mx-auto px-6 py-12">
         <h2 className="text-2xl font-bold mb-8 flex items-center gap-2"><Database size={24}/> Technical Expertise</h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          
-          {/* Programming */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          {/* Languages */}
           <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm">
-            <h3 className="text-lg font-bold mb-4 text-zinc-800 border-b border-zinc-100 pb-2">Programming</h3>
+            <h3 className="text-lg font-bold mb-4 text-zinc-800 border-b border-zinc-100 pb-2">Languages</h3>
             <ul className="space-y-3 text-zinc-600 text-sm font-medium">
               <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> C / C++</li>
               <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> C#</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Go</li>
               <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Python</li>
               <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Java</li>
-              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Javascript</li>
-              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> SQL</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> JavaScript</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> SQL / PL/SQL</li>
               <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Solidity</li>
             </ul>
           </div>
 
-          {/* Frameworks & APIs */}
+          {/* Backend & Frameworks */}
           <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm">
-            <h3 className="text-lg font-bold mb-4 text-zinc-800 border-b border-zinc-100 pb-2">Frameworks</h3>
+            <h3 className="text-lg font-bold mb-4 text-zinc-800 border-b border-zinc-100 pb-2">Backend & Frameworks</h3>
             <ul className="space-y-3 text-zinc-600 text-sm font-medium">
               <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> .NET Core</li>
               <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Node.js</li>
               <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> React / Next.js</li>
-              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> OpenCV / Keras</li>
-              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> xUnit</li>
-              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> JMeter</li>
-              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Gatling</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> FastAPI</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> REST APIs</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Microservices</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Distributed Systems</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Emissary-Ingress</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Webhooks</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Multithreading</li>
             </ul>
           </div>
 
-          {/* DevOps & Cloud */}
+          {/* Databases & ML */}
           <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm">
-            <h3 className="text-lg font-bold mb-4 text-zinc-800 border-b border-zinc-100 pb-2">DevOps & Cloud</h3>
+            <h3 className="text-lg font-bold mb-4 text-zinc-800 border-b border-zinc-100 pb-2">Databases & ML</h3>
+            <ul className="space-y-3 text-zinc-600 text-sm font-medium">
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> PostgreSQL</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Oracle DB</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> DuckDB</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Neo4j</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Query Optimization</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Indexing (B-Tree, HNSW)</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Vector Search</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> PyTorch / CLIP</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> OpenCV / Keras</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Pandas</li>
+            </ul>
+          </div>
+
+          {/* Cloud & Tools */}
+          <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm">
+            <h3 className="text-lg font-bold mb-4 text-zinc-800 border-b border-zinc-100 pb-2">Cloud & Tools</h3>
             <ul className="space-y-3 text-zinc-600 text-sm font-medium">
               <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Oracle Cloud (OCI)</li>
               <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Docker</li>
-              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> OpenTelemetry</li>
-              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Emissary-Ingress</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Linux / UNIX</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> CI/CD</li>
               <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Git</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> GDB / LLDB</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> pgbench / TPC-H</li>
+            </ul>
+          </div>
+
+          {/* Testing & Observability */}
+          <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm">
+            <h3 className="text-lg font-bold mb-4 text-zinc-800 border-b border-zinc-100 pb-2">Testing & Observability</h3>
+            <ul className="space-y-3 text-zinc-600 text-sm font-medium">
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Unit & Integration Testing</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> xUnit</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Gatling</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> JMeter</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Polly</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> OpenTelemetry</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Performance Tuning</li>
             </ul>
           </div>
 
