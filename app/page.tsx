@@ -102,15 +102,9 @@ export default function Portfolio() {
     {
       title: "KickScout Visual Search",
       category: "AI & Machine Learning",
-      description: "Built a zero-shot visual similarity search API over a 44K-item fashion catalog, encoding images into CLIP embeddings (SentenceTransformers ViT-B/32) and serving top-k matches via a FastAPI endpoint backed by Neo4j's native HNSW vector index.",
+      description: "Built a zero-shot visual similarity search API over a 44K-item fashion catalog, encoding images into 512-dimensional CLIP embeddings via SentenceTransformers and serving top-k cosine matches through a FastAPI endpoint backed by Neo4j's native HNSW vector index.",
       tags: ["PyTorch", "Neo4j", "FastAPI"],
       link: "https://github.com/shubh-1912/project-kickscout"
-    },
-    {
-      title: "Operations Data Platform — USC Hospitality",
-      category: "Data Engineering",
-      description: "Built a Python/SQL ETL pipeline processing 100K+ daily POS transactions for USC Hospitality, cutting nightly reporting from 40 minutes to 12 seconds and replacing 15 hours/week of manual work with a FastAPI reporting service used by 9 dining units.",
-      tags: ["Python", "Pandas", "SQL", "FastAPI", "ETL"]
     },
     {
       title: "DNA Matching System",
@@ -144,7 +138,7 @@ export default function Portfolio() {
     }
   ];
 
-  const categories = ['All', 'Systems Engineering', 'Data Engineering', 'Full-Stack & Web3', 'AI & Machine Learning'];
+  const categories = ['All', 'Systems Engineering', 'Full-Stack & Web3', 'AI & Machine Learning'];
 
   const filteredProjects = activeFilter === 'All' 
     ? projects 
@@ -311,14 +305,26 @@ export default function Portfolio() {
         
         <div className="border-l-2 border-zinc-200 pl-6 pb-8">
           <div className="flex justify-between items-baseline mb-2 flex-wrap gap-2">
+            <h3 className="text-xl font-bold">Assistant Forward Deployed Engineer</h3>
+            <span className="text-zinc-500 text-sm font-mono">Jun 2026 — Aug 2026</span>
+          </div>
+          <p className="text-zinc-600 font-medium mb-4">USC Hospitality | Los Angeles, CA</p>
+          <ul className="list-disc list-inside text-zinc-600 space-y-2">
+            <li>Built an internal operations dashboard in Streamlit, fed by a scheduled ETL pipeline processing 100K+ daily point-of-sale transactions, surfacing 10+ aggregate views and replacing 15 hours/week of manual report compilation.</li>
+            <li>Deployed and integrated a new dining location&apos;s ordering and live analytics stack, surfacing transaction patterns that drove drink-pairing upsell recommendations and boosted sales 40%.</li>
+          </ul>
+        </div>
+
+        <div className="border-l-2 border-zinc-200 pl-6 pb-8">
+          <div className="flex justify-between items-baseline mb-2 flex-wrap gap-2">
             <h3 className="text-xl font-bold">Software Engineer</h3>
             <span className="text-zinc-500 text-sm font-mono">Sep 2024 — May 2025</span>
           </div>
           <p className="text-zinc-600 font-medium mb-4">Oracle | Hyderabad, India</p>
           <ul className="list-disc list-inside text-zinc-600 space-y-2">
-            <li>Scaled 6 .NET Core microservices and REST APIs on Oracle Cloud Infrastructure to sustain 180 peak requests/sec at 140ms p99 and 99.95% availability, via connection pooling, response caching, and horizontal replica scaling.</li>
-            <li>Reduced p99 authorization API latency 23% by profiling hot request paths with OpenTelemetry, short-circuiting redundant policy evaluations, and caching resolved permission sets.</li>
-            <li>Prototyped custom-metric-driven horizontal autoscaling, webhook delivery, and configurable gateway routing on Emissary-Ingress, benchmarked at a 30% infrastructure cost reduction under 5x peak load; adopted into the scaling roadmap.</li>
+            <li>Designed and built a webhook delivery subsystem in .NET Core and Kafka for a multi-tenant platform scaling to 150 customers with 5 endpoints each, decoupling stored-procedure completion events from HTTP delivery via a polling microservice and async message queue, with at-least-once delivery guaranteed by acknowledging only on 2xx and HMAC-SHA256 payload signatures.</li>
+            <li>Scaled 6 microservices and REST APIs on Oracle Cloud Infrastructure to sustain 180 peak requests/sec at 140ms p99 and 99.95% availability, by adding connection pooling, response caching, and horizontal replica scaling.</li>
+            <li>Designed an audit trail subsystem for APIs, modeling actor, operation type, affected entity, and field-level changes into a single polymorphic table serving about 100 endpoints, with writes dispatched asynchronously to keep audit capture off the request path.</li>
           </ul>
         </div>
 
@@ -329,8 +335,9 @@ export default function Portfolio() {
           </div>
           <p className="text-zinc-600 font-medium mb-4">Oracle | Hyderabad, India</p>
           <ul className="list-disc list-inside text-zinc-600 space-y-2">
-            <li>Raised query throughput 77% by building a C# query builder that enforced index-driven execution plans, eliminating 12 sequential full-table scans across the 8 hottest production queries.</li>
-            <li>Cut load-test error rate 63% (8.1% → 3.0%) under 2,000 concurrent users by building a Gatling suite and implementing rate limiting and circuit breaking via Polly.</li>
+            <li>Raised query throughput 77% by building a C# query builder that enforced index-driven execution plans, eliminating 12 sequential full-table scans and removing in-memory sorts from the 8 hottest production queries.</li>
+            <li>Reduced p99 authorization API latency 23% by profiling hot request paths with OpenTelemetry, short-circuiting 4 redundant policy evaluations per request, and caching resolved permission sets.</li>
+            <li>Cut load-test error rate 63% (8.1% → 3.0%) under 2,000 concurrent users by building a Gatling suite that surfaced saturation failures, then implementing rate limiting and circuit breaking via Polly.</li>
           </ul>
         </div>
       </section>
@@ -396,6 +403,7 @@ export default function Portfolio() {
               <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Distributed Systems</li>
               <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Emissary-Ingress</li>
               <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Webhooks</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Kafka</li>
               <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Multithreading</li>
             </ul>
           </div>
@@ -428,6 +436,7 @@ export default function Portfolio() {
               <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Git</li>
               <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> GDB / LLDB</li>
               <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> pgbench / TPC-H</li>
+              <li className="flex items-start gap-2"><span className="text-zinc-400 mt-[2px]">▸</span> Streamlit</li>
             </ul>
           </div>
 
